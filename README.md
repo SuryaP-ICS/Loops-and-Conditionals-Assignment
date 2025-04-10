@@ -18,13 +18,12 @@ The assignment will include control flow done manually with ChatGPT inclusion in
 
 # Processes That Will Happen and How to Run The System
 
-🅰️ Input your Destination out of a list of 5 locations
-🅱️ Input your Trip's Duration. When you leave and when you come back also work fine
-©️ Input your Travel preferences
-- Food (type of cuisine and fast/fine dining)
+- Input your Destination out of a list of 5 locations
+- Input your Trip's Duration. When you leave and when you come back also work fine
+- Input your Travel preferences: Food (type of cuisine and fast/fine dining)
 - Activity (Hiking vs Spa Day)
-D - Input the weather/climate of that location based on what is currently available for the trip's duration
-E - Recieve a polished travel itinerary to help you organize your activities and schedule as well as ChatGPT's travel tips and packing advice.
+- Input the weather/climate of that location based on what is currently available for the trip's duration
+- Recieve a polished travel itinerary to help you organize your activities and schedule as well as ChatGPT's travel tips and packing advice.
 
 
 
