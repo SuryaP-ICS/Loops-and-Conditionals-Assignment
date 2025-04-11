@@ -35,3 +35,24 @@ for i, d in enumerate(destination_types, 1): print(f"{i}. {d}")
 print(f"{len(destination_types)+1}. Enter your own")
 dest_type_choice = input("Your choice: ")
 dest_type = destination_types[int(dest_type_choice)-1] if dest_type_choice.isdigit() and 1 <= int(dest_type_choice) <= len(destination_types) else input("Enter custom destination type: ")
+# --- Clothing Suggestions ---
+clothing_suggestions = {
+        "Sunny": ["sunhat", "sunglasses", "light clothes"],
+        "Rainy": ["umbrella", "raincoat", "waterproof shoes"],
+        "Cold": ["coat", "gloves", "scarf"],
+        "Mixed": ["layered clothes", "light jacket"]
+    }
+clothes = clothing_suggestions.get(weather, ["basic clothing"])
+
+    # --- Itinerary ---
+itinerary = [
+        f"{start}: Arrive in {destination}, settle in, and explore.",
+        f"Mid-trip: Enjoy {activity.lower()} experiences.",
+        f"{end}: Wrap up and enjoy a nice {food.lower()} meal."
+    ]
+
+    # --- Packing List ---
+packing_list = ["passport", "toiletries", "ID"] + clothes + [f"{activity.lower()} gear"]
+
+    # --- Local Tips ---
+
