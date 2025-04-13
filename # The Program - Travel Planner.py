@@ -1,58 +1,122 @@
-# The Program - Travel Planner
 import datetime
-# Date input with validation
-def get_date(prompt):
+import openai
+openai.api_key = "ENTER API KEY HERE"
+
+# This program makes use of enumerate statements (Statements that list items one by one), as well as try/except statements
+# This program includes chatgpt integration for the portion that involves the itinerary
+# This program is also using /nx to denote numbers for options easier than defining as variables
+
+print("Welcome to VoyageGenie, Your AI Travel Planner!")
+
+try:
+    destination = input("Enter destination (city, country): ")
+
     while True:
         try:
-            return datetime.datetime.strptime(input(f"{prompt} (YYYY-MM-DD): "), "%Y-%m-%d").date()
+            start = datetime.datetime.strptime(input("Trip start date (YYYY-MM-DD): "), "%Y-%m-%d").date()
+            break
         except ValueError:
-            print("Invalid date. Try again.")
-# --- Choice Menus ---
-food_options = ["Vegetarian", "Local Cuisine", "Fine Dining", "Street Food"]
-activity_options = ["Adventure", "Cultural", "Relaxation", "Nightlife"]
-weather_options = ["Sunny", "Rainy", "Cold", "Mixed"]
-destination_types = ["Beach", "Mountains", "Urban City", "Countryside"]
-# Added food choice with statements with enumerate funcion (loops and index combined into one function)
-print("Food Preferences:")
-for i, f in enumerate(food_options, 1): print(f"{i}. {f}")
-print(f"{len(food_options)+1}. Enter your own")
-food_choice = input("Your choice: ")
-food = food_options[int(food_choice)-1] if food_choice.isdigit() and 1 <= int(food_choice) <= len(food_options) else input("Enter your custom food: ")
-# added activity preferencs with enumerate functions 
-print("Activity Preferences:")
-for i, a in enumerate(activity_options, 1): print(f"{i}. {a}")
-print(f"{len(activity_options)+1}. Enter your own")
-activity_choice = input("Your choice: ")
-activity = activity_options[int(activity_choice)-1] if activity_choice.isdigit() and 1 <= int(activity_choice) <= len(activity_options) else input("Enter your custom activity: ")
-print("Weather Forecast:")
-for i, w in enumerate(weather_options, 1): print(f"{i}. {w}")
-print(f"{len(weather_options)+1}. Enter your own")
-weather_choice = input("Your choice: ")
-weather = weather_options[int(weather_choice)-1] if weather_choice.isdigit() and 1 <= int(weather_choice) <= len(weather_options) else input("Enter custom weather: ")
+            print("Invalid date format. Try again.")
 
-print("Destination Type:")
-for i, d in enumerate(destination_types, 1): print(f"{i}. {d}")
-print(f"{len(destination_types)+1}. Enter your own")
-dest_type_choice = input("Your choice: ")
-dest_type = destination_types[int(dest_type_choice)-1] if dest_type_choice.isdigit() and 1 <= int(dest_type_choice) <= len(destination_types) else input("Enter custom destination type: ")
-# --- Clothing Suggestions ---
-clothing_suggestions = {
+    while True:
+        try:
+            end = datetime.datetime.strptime(input("Trip end date (YYYY-MM-DD): "), "%Y-%m-%d").date()
+            if end <= start:
+                print("End date must be after start date.")
+            else:
+                break
+        except ValueError:
+            print("Invalid date format. Try again.")
+
+    print("\nFood Preferences:")
+    print("1. Vegetarian\n2. Local Cuisine\n3. Fine Dining\n4. Street Food\n5. Enter your own")
+    choice = input("Choose an option: ")
+    food = ["Vegetarian", "Local Cuisine", "Fine Dining", "Street Food"]
+    food = food[int(choice)-1] if choice in "1234" else input("Enter your food preference: ")
+
+    print("\nActivity Preferences:")
+    print("1. Adventure\n2. Cultural\n3. Relaxation\n4. Nightlife\n5. Enter your own")
+    choice = input("Choose an option: ")
+    activity = ["Adventure", "Cultural", "Relaxation", "Nightlife"]
+    activity = activity[int(choice)-1] if choice in "1234" else input("Enter your activity preference: ")
+
+    print("\nWeather Forecast:")
+    print("1. Sunny\n2. Rainy\n3. Cold\n4. Mixed\n5. Enter your own")
+    choice = input("Choose an option: ")
+    weather = ["Sunny", "Rainy", "Cold", "Mixed"]
+    weather = weather[int(choice)-1] if choice in "1234" else input("Enter the expected weather: ")
+
+    print("\nDestination Type:")
+    print("1. Beach\n2. Mountains\n3. Urban City\n4. Countryside\n5. Enter your own")
+    choice = input("Choose an option: ")
+    dest_type = ["Beach", "Mountains", "Urban City", "Countryside"]
+    dest_type = dest_type[int(choice)-1] if choice in "1234" else input("Enter your destination type: ")
+
+    # Clothing Suggestions
+    clothes = {
         "Sunny": ["sunhat", "sunglasses", "light clothes"],
         "Rainy": ["umbrella", "raincoat", "waterproof shoes"],
         "Cold": ["coat", "gloves", "scarf"],
         "Mixed": ["layered clothes", "light jacket"]
-    }
-clothes = clothing_suggestions.get(weather, ["basic clothing"])
+    }.get(weather, ["basic clothing"])
 
-    # --- Itinerary ---
-itinerary = [
-        f"{start}: Arrive in {destination}, settle in, and explore.",
-        f"Mid-trip: Enjoy {activity.lower()} experiences.",
-        f"{end}: Wrap up and enjoy a nice {food.lower()} meal."
+    # Itinerary
+    itinerary = [
+        f"{start}: Arrive in {destination} and explore nearby areas.",
+        f"Middle of trip: Enjoy {activity.lower()} experiences.",
+        f"{end}: Final day and enjoy a nice {food.lower()} meal."
     ]
 
-    # --- Packing List ---
-packing_list = ["passport", "toiletries", "ID"] + clothes + [f"{activity.lower()} gear"]
+    # Packing List
+    packing_list = ["passport", "toiletries", "ID"] + clothes + [f"{activity.lower()} gear"]
 
-    # --- Local Tips ---
+    # 💬 ChatGPT Tips
+    try:
+        chat_prompt = (
+            f"You're a travel expert. Give some detailed, practical travel tips for visiting {destination}. "
+            f"The traveler enjoys {activity.lower()} activities and prefers {food.lower()} food. "
+            f"Tips should be helpful, fun, and insightful."
+        )
 
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            temperature=0.7,
+            messages=[
+                {"role": "system", "content": "You are a helpful travel assistant."},
+                {"role": "user", "content": chat_prompt}
+            ]
+        )
+
+        # ✅ Print full response content
+        content = response["choices"][0]["message"]["content"]
+        tips = content.strip().split("\n")
+
+    except Exception as e:
+        print("\n[!] Could not retrieve tips from ChatGPT:", e)
+        tips = [
+            f"Explore local {food.lower()} options in {destination}.",
+            "Learn basic greetings and respect local customs."
+        ]
+
+    # 🧾 Final Output
+    print("\n🧳 Your VoyageGenie Travel Plan is Ready!\n")
+    print("🌤️ Weather:", weather)
+
+    print("\n👕 Clothing Suggestions:")
+    for item in clothes:
+        print("-", item)
+
+    print("\n📅 Itinerary:")
+    for day in itinerary:
+        print("-", day)
+
+    print("\n🎒 Packing List:")
+    for item in packing_list:
+        print("-", item)
+
+    print("\n🌍 Local Tips from ChatGPT:")
+    for tip in tips:
+        print("-", tip)
+
+except Exception as e:
+    print("\n[!] Something went wrong:", e)
