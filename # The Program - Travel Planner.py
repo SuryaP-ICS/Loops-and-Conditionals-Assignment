@@ -2,7 +2,7 @@ import datetime
 import openai
 openai.api_key = "ENTER API KEY HERE"
 
-# This program makes use of enumerate statements (Statements that list items one by one), as well as try/except statements
+# This program makes use of try/except blocks to help with error handling
 # This program includes chatgpt integration for the portion that involves the itinerary
 # This program is also using /nx to denote numbers for options easier than defining as variables
 
