@@ -7,7 +7,7 @@ openai.api_key = "ENTER API KEY HERE"
 # This program is also using /nx to denote numbers for options 
 
 print("Welcome to VoyageGenie, Your AI Travel Planner!")
-
+# Destination
 try:
     destination = input("Enter destination (city, country): ")
 
@@ -17,7 +17,7 @@ try:
             break
         except ValueError:
             print("Invalid date format. Try again.")
-
+   # Date
     while True:
         try:
             end = datetime.datetime.strptime(input("Trip end date (YYYY-MM-DD): "), "%Y-%m-%d").date()
@@ -27,25 +27,25 @@ try:
                 break
         except ValueError:
             print("Invalid date format. Try again.")
-
+    # Food Choice
     print("\nFood Preferences:")
     print("1. Vegetarian\n2. Local Cuisine\n3. Fine Dining\n4. Street Food\n5. Enter your own")
     choice = input("Choose an option: ")
     food = ["Vegetarian", "Local Cuisine", "Fine Dining", "Street Food"]
     food = food[int(choice)-1] if choice in "1234" else input("Enter your food preference: ")
-
+    # Activity
     print("\nActivity Preferences:")
     print("1. Adventure\n2. Cultural\n3. Relaxation\n4. Nightlife\n5. Enter your own")
     choice = input("Choose an option: ")
     activity = ["Adventure", "Cultural", "Relaxation", "Nightlife"]
     activity = activity[int(choice)-1] if choice in "1234" else input("Enter your activity preference: ")
-
+    # Weather
     print("\nWeather Forecast:")
     print("1. Sunny\n2. Rainy\n3. Cold\n4. Mixed\n5. Enter your own")
     choice = input("Choose an option: ")
     weather = ["Sunny", "Rainy", "Cold", "Mixed"]
     weather = weather[int(choice)-1] if choice in "1234" else input("Enter the expected weather: ")
-
+    # Destination Type
     print("\nDestination Type:")
     print("1. Beach\n2. Mountains\n3. Urban City\n4. Countryside\n5. Enter your own")
     choice = input("Choose an option: ")
@@ -70,7 +70,7 @@ try:
     # Packing List
     packing_list = ["passport", "toiletries", "ID"] + clothes + [f"{activity.lower()} gear"]
 
-    # 💬 ChatGPT Tips
+    # ChatGPT Tips
     try:
         chat_prompt = (
             f"You're a travel expert. Give some detailed, practical travel tips for visiting {destination}. "
@@ -87,7 +87,7 @@ try:
             ]
         )
 
-        # ✅ Print full response content
+        # Print full response content
         content = response["choices"][0]["message"]["content"]
         tips = content.strip().split("\n")
 
@@ -98,7 +98,7 @@ try:
             "Learn basic greetings and respect local customs."
         ]
 
-    # 🧾 Final Output
+    #  Final Output
     print("\n🧳 Your VoyageGenie Travel Plan is Ready!\n")
     print("🌤️ Weather:", weather)
 
