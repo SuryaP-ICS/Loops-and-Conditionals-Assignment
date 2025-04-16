@@ -4,7 +4,7 @@ openai.api_key = "ENTER API KEY HERE"
 
 # This program makes use of try/except blocks to help with error handling
 # This program includes chatgpt integration for the portion that involves the itinerary
-# This program is also using /nx to denote numbers for options easier than defining as variables
+# This program is also using /nx to denote numbers for options 
 
 print("Welcome to VoyageGenie, Your AI Travel Planner!")
 
