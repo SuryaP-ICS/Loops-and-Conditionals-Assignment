@@ -2,9 +2,9 @@ import datetime  # Used for handling dates
 import openai  # Used for accessing the OpenAI API (ChatGPT)
 openai.api_key = "ENTER API KEY HERE"  # <-- Replace with your OpenAI API key
 
-# This program makes use of enumerate statements (Statements that list items one by one), as well as try/except statements
-# This program includes ChatGPT integration for the portion that involves generating local travel tips
-# This program uses numerical options ("/nx") for easier menu selection without hardcoding variables
+# This program makes use of try/except blocks to handle errors
+# It includes ChatGPT integration for generating local travel tips
+# It uses numerical options for easier menu selection
 
 print("Welcome to VoyageGenie, Your AI Travel Planner!")
 
@@ -77,7 +77,7 @@ try:
     # Prepare a packing list based on travel essentials and activity
     packing_list = ["passport", "toiletries", "ID"] + clothes + [f"{activity.lower()} gear"]
 
-    # 💬 ChatGPT Integration for Local Tips
+    # ChatGPT Integration for Local Tips
     try:
         # Create a prompt for ChatGPT to generate travel tips based on user preferences
         chat_prompt = (
@@ -96,7 +96,7 @@ try:
             ]
         )
 
-        # ✅ Parse and format ChatGPT's response
+        # Parse and format ChatGPT's response
         content = response["choices"][0]["message"]["content"]
         tips = content.strip().split("\n")  # Split tips into a list
 
@@ -108,7 +108,7 @@ try:
             "Learn basic greetings and respect local customs."
         ]
 
-    # 🧾 Final Output Section: Display compiled travel plan
+    # Final Output Section: Display compiled travel plan
     print("\n🧳 Your VoyageGenie Travel Plan is Ready!\n")
 
     print("🌤️ Weather:", weather)
